@@ -19,7 +19,7 @@ socket.on('response', (data) => {
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+                    <strong>${data.id}</strong>
                     <br>
                     ${data.message}
                   </p>
@@ -31,7 +31,9 @@ socket.on('response', (data) => {
 
 send.on('keypress', (event) => {
   if (event.keyCode == 13 || event.key == "Enter" && send.val().length > 0) {
-    socket.emit('sendMessage', send.val())
-    send.val('');
+    if (send.val().length > 0) {
+      socket.emit('sendMessage', send.val())
+      send.val('');
+    }
   }
 });
