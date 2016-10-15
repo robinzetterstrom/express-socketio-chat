@@ -4,34 +4,57 @@
     <meta charset="utf-8">
     <title>Express App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.1/css/bulma.min.css" media="screen">
+    <link rel="stylesheet" href="/assets/styles/main.css" media="screen">
   </head>
   <body>
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item is-brand" href="/">
+          <h1 class="title">Chat Application</h1>
+        </a>
+      </div>
 
-    <ul id="messages">
-      <!-- TODOS -->
-    </ul>
+      <div class="nav-center level">
+        <div class="level-item has-text-centered">
+          <p class="heading">Connected clients</p>
+          <p class="title clients">3,456</p>
+        </div>
+      </div>
 
-    <input type="text" name="name">
-    <button type="button" name="button">Skicka</button>
+      <div class="nav-right nav-menu">
+        <a class="nav-item" href="https://github.com/robinzetterstrom">
+          <span class="icon">
+            <i class="fa fa-github"></i>
+          </span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+
+        <div id="chatBox">
+          <!-- Message Outlet -->
+        </div>
+
+            <div class="media">
+            <div class="media-content">
+              <p class="control has-icon">
+                <input id="messageBox" class="input is-medium" type="text" placeholder="Message">
+                <i class="fa fa-comment-o"></i>
+              </p>
+            </div>
+          </div>
+
+        <!--<input type="text" name="name">
+        <button type="button" name="button">Skicka</button>-->
+      </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.min.js"></script>
-    <script type="text/javascript">
-      const socket = io.connect('http://localhost:3000/');
-      const sendButton = $('button');
-      const textBox = $('#messages');
-      const messageField = $('input');
-
-      socket.on('response', (data) => {
-        textBox.append(`<li>${data.message}</li>`);
-      });
-
-      sendButton.on('click', () => {
-        if (messageField.val().length > 0) {
-          socket.emit('sendMessage', messageField.val())
-          messageField.val('');  
-        }
-      });
-    </script>
+    <script type="text/javascript" src="/assets/js/main.js"></script>
   </body>
 </html>
