@@ -1,11 +1,8 @@
 {
-  "name": "express-steam",
+  "name": "express-socket_io",
   "version": "1.0.0",
-  "description": "",
+  "description": "Chat application built with express & socket.io.",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Robin Zetterström",
   "license": "MIT",
   "dependencies": {

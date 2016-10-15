@@ -1,25 +1,33 @@
 const express = require('express');
 const app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const path = require('path');
 
 server.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Chat application listening on localhost:3000!');
 });
 
-// http://localhost:3000/internal/v1/
-// will get html from folder /public
-//app.use('/internal/v1', express.static(__dirname + '/public'));
-//app.use('/', express.static(__dirname + '/public'));
+app.use('/assets', express.static('public/assets/'));
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 
 io.on('connection', function (socket) {
+  // Client connected to server
+  console.log(`Client: ${socket.id} connected.`);
+
+  // Client disconnects from server
+  socket.on('disconnect', function () {
+    console.log(socket.id + ' disconnected');
+  });
+
+  // Listening for chat messages and emit the message back to all connected clients.
   socket.on('sendMessage', function (data) {
     io.sockets.emit('response', {"id": socket.id, "message": data});
   });
+  // Emit socket/connection count.
+  io.sockets.emit('clients', io.eio.clientsCount)
 
 });
